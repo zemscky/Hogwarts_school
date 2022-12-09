@@ -3,6 +3,7 @@ package ru.hogwarts.school.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
@@ -41,5 +42,9 @@ public class FacultyController {
     public ResponseEntity<Void> deleteFaculty(@PathVariable("id") long id){
         this.facultyService.removeFaculty(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/color/{color}")
+    public Collection<Faculty> getFacultiesByAge(@PathVariable("color") String color) {
+        return this.facultyService.getByColor(color);
     }
 }

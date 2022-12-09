@@ -3,11 +3,14 @@ package ru.hogwarts.school.service;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exceptions.FacultyNotFoundExceptions;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 public class FacultyService {
     private long counter = 0L;
@@ -38,16 +41,21 @@ public class FacultyService {
     public Faculty getFaculty(Long id) {
         if (this.faculties.containsKey(id)) {
             return this.faculties.get(id);
-        }else {
+        } else {
             throw new FacultyNotFoundExceptions();
         }
     }
+
     public void removeFaculty(Long id) {
-        if (this.faculties.containsKey(id)){
+        if (this.faculties.containsKey(id)) {
             this.faculties.remove(id);
-        }
-        else {
+        } else {
             throw new FacultyNotFoundExceptions();
         }
+    }
+
+    public Collection<Faculty> getByColor(String color) {
+        return this.faculties.values().stream().filter(s -> s.getColor() == color)
+                .collect(Collectors.toList());
     }
 }

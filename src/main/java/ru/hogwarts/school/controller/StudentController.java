@@ -41,5 +41,8 @@ public class StudentController {
         this.studentService.removeStudents(id);
         return ResponseEntity.noContent().build();
     }
-
+    @GetMapping("/age/{age}")
+    public Collection<Student> getStudentsByAge(@PathVariable("age") int age) {
+        return this.studentService.getByAge(age);
+    }
 }

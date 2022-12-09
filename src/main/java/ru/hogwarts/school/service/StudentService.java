@@ -7,6 +7,8 @@ import ru.hogwarts.school.model.Student;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 public class StudentService {
     private long counter = 0L;
@@ -48,6 +50,10 @@ public class StudentService {
         else {
             throw new StudentsNotFoundExceptions();
         }
+    }
+    public Collection<Student> getByAge(int age) {
+        return this.students.values().stream().filter(s -> s.getAge() == age)
+                .collect(Collectors.toList());
     }
 }
 
